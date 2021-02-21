@@ -1,7 +1,6 @@
 const Semaphore = require("../Semaphore");
 
 const two = new Semaphore(2);
-
 const promises = [];
 
 for (let i = 0; i < 3; i++) {
