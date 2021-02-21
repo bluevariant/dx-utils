@@ -15,7 +15,7 @@ for (let i = 0; i < 3; i++) {
         clearInterval(timer);
         release("OK: " + i);
       }
-    }, 1000);
+    });
   });
 
   promises.push(promise);
