@@ -1,17 +1,24 @@
 const Semaphore = require("../Semaphore");
 
-const one = new Semaphore(2);
-one
-  .acquire((release) => {
-    let i = 0;
-    const timer = setInterval(() => {
-      console.log("0:", i);
-      i++;
+const two = new Semaphore(2);
 
-      if (i === 10) {
+const promises = [];
+
+for (let i = 0; i < 3; i++) {
+  const promise = two.acquire((release) => {
+    let j = 0;
+    const timer = setInterval(() => {
+      console.log(i + ":", j);
+      j++;
+
+      if (j === 10) {
         clearInterval(timer);
-        release("OK");
+        release("OK: " + i);
       }
     }, 1000);
-  })
-  .then(console.log);
+  });
+
+  promises.push(promise);
+}
+
+Promise.all(promises).then(console.log);
